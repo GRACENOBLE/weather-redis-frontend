@@ -44,6 +44,9 @@ importers:
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.16)
+      unix-timestamp:
+        specifier: ^1.1.0
+        version: 1.1.0
       zod:
         specifier: ^3.23.8
         version: 3.23.8
@@ -817,6 +820,9 @@ packages:
   undici-types@6.19.8:
     resolution: {integrity: sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw==}
 
+  unix-timestamp@1.1.0:
+    resolution: {integrity: sha512-Klphpdir2M9C2bv7CtERJRGxdJdIwBJsyZP9vDt+tso5GOPCIcTr6eQ/jj+r4N1Bjl76AXRgBJ1iuDZ9TaVe3A==}
+
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
@@ -1520,6 +1526,8 @@ snapshots:
   typescript@5.7.2: {}
 
   undici-types@6.19.8: {}
+
+  unix-timestamp@1.1.0: {}
 
   util-deprecate@1.0.2: {}
 
