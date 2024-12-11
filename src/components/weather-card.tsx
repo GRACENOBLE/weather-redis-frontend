@@ -1,6 +1,7 @@
 import { WeatherIcons } from "@/constants";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { useState } from "react";
 import timestamp from "unix-timestamp";
 
 const WeatherCards = ({
@@ -43,6 +44,14 @@ const WeatherCards = ({
   }[];
   loading: boolean;
 }) => {
+  const [maxTemp, setMaxTemp] = useState<number>(0);
+  const [minTemp, setMinTemp] = useState<number>(0);
+
+  daily && daily.forEach((day) => {
+    parseInt(day?.temp?.max) > maxTemp && setMaxTemp(parseInt(day?.temp?.max));
+    parseInt(day?.temp?.min) < minTemp && setMinTemp(parseInt(day?.temp?.min));
+  });
+
   return (
     <>
       <div className="bg-black/10 rounded-xl w-full  px-4 h-80 flex flex-col items-center mx-auto mb-4 py-4">
@@ -127,7 +136,7 @@ const WeatherCards = ({
                 </p>
                 <div className="flex items-center gap-4 py-2">
                   <p>{Math.floor(parseInt(temp?.min) - 273.15)}°</p>
-                  <div className="h-1 w-40 bg-black/10 rounded-full" />
+                  <div className="h-1 w-20 md:w-40 bg-gradient-to-r from-blue-300 to-orange-300 rounded-full"/>
                   <p>{Math.floor(parseInt(temp?.max) - 273.15)}°</p>
                 </div>
               </div>

@@ -20,7 +20,7 @@ import Image from "next/image";
 import { MapPin } from "lucide-react";
 
 const formSchema = z.object({
-  username: z.string().min(2).max(50),
+  city: z.string().min(2).max(50),
 });
 
 const WeatherForm = () => {
@@ -28,17 +28,19 @@ const WeatherForm = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
+      city: "",
     },
   });
   const [loading, setLoading] = useState<boolean>(false);
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(values);
+
     setLoading(true);
 
     try {
-      const weather = await GetCurrentWeather();
+      const weather = await GetCurrentWeather(values.city);
       setWeatherData(weather);
       setLoading(false);
     } catch (e) {
@@ -47,18 +49,18 @@ const WeatherForm = () => {
   }
 
   return (
-    <section className="w-full flex flex-col items-center justify-center gap-10 pt-20 px-4">
+    <section className="w-full flex flex-col items-center justify-center gap-10 py-20 px-4 ">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="flex items-center justify-between gap-4 w-full max-w-[440px]"
+          className="flex items-center justify-between gap-4 w-full max-w-[440px] absolute md:relative top-4 px-4 md:px-0"
         >
           <Button className="rounded-full w-8 h-8">
             <MapPin strokeWidth={1.5} />
           </Button>
           <FormField
             control={form.control}
-            name="username"
+            name="city"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
