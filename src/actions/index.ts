@@ -1,8 +1,9 @@
 "use server";
 
 export const GetCurrentWeather = async (city: string) => {
+  const apikey = process.env.OPEN_WEATHER_API_KEY
   const coordinates = await fetch(
-    `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=b276450722b0a660643388906a4e115f`
+    `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${apikey}`
   )
     .then((response) => response.json())
     .then((res) => res[0])
