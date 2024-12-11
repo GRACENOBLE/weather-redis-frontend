@@ -17,6 +17,7 @@ import { useState } from "react";
 import Container from "../Container";
 import WeatherCards from "../weather-card";
 import Image from "next/image";
+import { MapPin } from "lucide-react";
 
 const formSchema = z.object({
   username: z.string().min(2).max(50),
@@ -36,30 +37,38 @@ const WeatherForm = () => {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setLoading(true);
 
-    const response = await GetCurrentWeather()
-      .then((weather) => setWeatherData(weather))
-      .then(() => setLoading(false));
-
-    //console.log(response);
+    try {
+      const weather = await GetCurrentWeather();
+      setWeatherData(weather);
+      setLoading(false);
+    } catch (e) {
+      console.error("Error fetching weather data:", e);
+    }
   }
 
   return (
     <section className="w-full flex flex-col items-center justify-center gap-10 pt-20 px-4">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="flex gap-8">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="flex items-center justify-between gap-4 w-full max-w-[440px]"
+        >
+          <Button className="rounded-full w-8 h-8">
+            <MapPin strokeWidth={1.5} />
+          </Button>
           <FormField
             control={form.control}
             name="username"
             render={({ field }) => (
-              <FormItem className="">
+              <FormItem className="w-full">
                 <FormControl>
                   <Input
                     placeholder="kampala"
                     {...field}
-                    className=" flex-1 border-2 border-white/25 bg-white/25 backdrop-blur-sm"
+                    className=" border-white/25 bg-white/25 backdrop-blur-sm"
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="absolute" />
               </FormItem>
             )}
           />
